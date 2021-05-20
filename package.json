@@ -1,0 +1,11 @@
+{
+  "name": "testem-minimal-error-reporter",
+  "version": "0.0.1",
+  "description": "Testem minimal error reporter",
+  "main": "minimal-error-reporter.js",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "testem": "^3.4.1"
+  }
+}
