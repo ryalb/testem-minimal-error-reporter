@@ -1,5 +1,5 @@
-import TapReporter from 'testem/lib/reporters/tap_reporter';
-import colors from 'colors/safe';
+const TapReporter = require('testem/lib/reporters/tap_reporter');
+const colors = require('colors/safe');
 
 class MinimalErrorReporter extends TapReporter {
   display(prefix, result) {
