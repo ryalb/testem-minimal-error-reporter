@@ -8,17 +8,17 @@ class MinimalErrorColoredReporter extends TapReporter {
     this.failed = 0;
     this.failedTests = [];
   }
+
   display(prefix, result) {
     if (!result.passed && !result.skipped && !result.todo) {
       const line = result.name.replace(/Exam Partition .* -/, '').trim()
       this.failedTests.push(line)
     }
     let output = '■';
-    if (result.passed) output = colors.green(output);
-    else if (result.skipped) output = colors.gray(output);
-    else if (result.todo) output = colors.yellow(output);
-    else output = colors.brightRed(output);
-    this.out.write(output);
+    if (result.passed) this.out.write(colors.green(output));
+    else if (result.skipped) this.out.write(colors.gray(output));
+    else if (result.todo) this.out.write(colors.yellow(output));
+    else this.out.write(colors.brightRed(output));
   }
 
   summaryDisplay() {
@@ -35,7 +35,7 @@ class MinimalErrorColoredReporter extends TapReporter {
       '+---------------+',
     ];
 
-    if (this.failedTests) {
+    if (this.failedTests.length > 0) {
       lines.push('');
       lines.push('FAILED TESTS:');
       this.failedTests.forEach(function (failedTest) {
@@ -65,9 +65,6 @@ class MinimalErrorColoredReporter extends TapReporter {
       this.failed++;
     }
   }
-
-
 }
 
-
-module.exports = MinimalErrorReporter;
+module.exports = MinimalErrorColoredReporter;

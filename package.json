@@ -1,6 +1,6 @@
 {
   "name": "testem-minimal-error-reporter",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Testem minimal error reporter",
   "main": "minimal-error-colored-reporter.js",
   "license": "MIT",
