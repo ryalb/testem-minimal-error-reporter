@@ -108,5 +108,7 @@ class MinimalErrorColoredReporter extends MinimalErrorReporter {
   }
 }
 
-module.exports = MinimalErrorReporter;
-module.exports = MinimalErrorColoredReporter;
+module.exports = {
+  MinimalErrorReporter: MinimalErrorReporter,
+  MinimalErrorColoredReporter: MinimalErrorColoredReporter
+};
