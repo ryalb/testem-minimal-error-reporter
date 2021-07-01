@@ -1,5 +1,6 @@
 const TapReporter = require('testem/lib/reporters/tap_reporter');
 const colors = require('colors/safe');
+const displayutils = require('testem/lib/utils/displayutils');
 
 class MinimalErrorReporter extends TapReporter {
   constructor(silent, out, config) {
@@ -10,14 +11,20 @@ class MinimalErrorReporter extends TapReporter {
   }
 
   display(prefix, result) {
-    if (!result.passed && !result.skipped && !result.todo) {
-      const line = result.name.replace(/Exam Partition .* -/, '').trim()
-      this.failedTests.push(line)
-    }
     if (result.passed) this.out.write('.');
     else if (result.skipped) this.out.write('*');
     else if (result.todo) this.out.write('-');
-    else this.out.write('F');
+    else {
+      this.out.write('F');
+
+      const failedTest = {
+        id: this.id,
+        prefix,
+        result,
+      }
+
+      this.failedTests.push(failedTest);
+    }
   }
 
   summaryDisplay() {
@@ -37,11 +44,10 @@ class MinimalErrorReporter extends TapReporter {
     if (this.failedTests.length > 0) {
       lines.push('');
       lines.push('FAILED TESTS:');
-      this.failedTests.sort();
-      this.failedTests.forEach(function (failedTest) {
-        lines.push('> ' + failedTest);
+
+      this.failedTests.forEach((failedTest) => {
+        lines.push(displayutils.resultString(failedTest.id, failedTest.prefix, failedTest.result, this.quietLogs, this.strictSpecCompliance))
       });
-      lines.push('');
     }
 
     return lines.join('\n');
